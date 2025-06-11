@@ -1,14 +1,21 @@
+# import tensorflow as tf
 import numpy as np
-from utils import visualise
+import os
 
-data = np.load("training_data/flipped_truck_mountains10.npz")
-keys = data.files
+from batch_loader import generate_gril
 
-print("Keys : ", keys)
+path = "training_data"
+file_list = os.listdir(path)
 
-for key in keys:
-    print(key, data[key].shape)
+gen = generate_gril(path, file_list)
 
-for i in range(2):
-    print(data["images"][i].shape)
-    visualise(data["images"][i], data["gaze_coords"][i])
+for i, (x, y) in enumerate(gen):
+    print(f"Sample {i+1}")
+    print("Image shape:", x["image"].shape)
+    print("Depth shape:", x["depth"].shape)
+    print("Action:", y["action"])
+    print("Gaze:", y["gaze"])
+    print("-" * 40)
+
+    if i == 2:
+        break
