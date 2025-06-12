@@ -22,7 +22,7 @@ def generate_gril(path: str, file_list: list):
             )
 
 
-def read_npz(file_path: str) -> list:
+def read_npz(file_path: str):
     with np.load(file_path) as data:
         images = data["images"]/255
         depth = data["depth"]
