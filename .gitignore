@@ -1,3 +1,5 @@
 .venv/
 training_data/
 __pycache__/
+gril.h5
+gril_training.log

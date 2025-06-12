@@ -76,3 +76,5 @@ model.fit(
     validation_data=val,
     callbacks=[tf.keras.callbacks.CSVLogger('gril_training.log')]
 )
+
+model.save("gril.h5")
