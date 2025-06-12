@@ -5,6 +5,8 @@ import os
 
 from batch_loader import generate_gril
 from utils import total_samples_count
+from models import gril
+from losses import action_loss
 
 batch_size = 32
 train_datapath = "training_data/train"
@@ -50,3 +52,27 @@ val = tf.data.Dataset.from_generator(
         }
     )
 ).batch(batch_size).prefetch(tf.data.AUTOTUNE)
+
+
+# model training
+
+model = gril()
+
+lr_schedule = tf.keras.optimizers.schedules.ExponentialDecay(
+    initial_learning_rate=0.00001,
+    decay_steps=10000,
+    decay_rate=0.9
+)
+optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule, epsilon=1e-4)
+
+model.compile(
+    optimizer=optimizer,
+    loss=[action_loss, 'mean_squared_error']
+)
+
+model.fit(
+    tfx,
+    epochs=30,
+    validation_data=val,
+    callbacks=[tf.keras.callbacks.CSVLogger('gril_training.log')]
+)
