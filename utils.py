@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 from batch_loader import generate_gril
 
@@ -25,10 +26,9 @@ def test_generate_gril(path: str, file_list: list, max: int):
     """
 
     gen = generate_gril(path, file_list)
-    print(gen)
 
     for i, (x, y) in enumerate(gen):
-        print("Sample : {i+1}")
+        print(f"Sample : {i+1}")
         print(f"Image : {x['image'].shape}")
         print(f"Depth : {x['depth'].shape}")
         print(f"Gaze : {y['gaze']}")
@@ -37,3 +37,16 @@ def test_generate_gril(path: str, file_list: list, max: int):
 
         if i == max:
             break
+
+
+def total_samples_count(path: str, file_list: list) -> int:
+    """
+        to get total count of samples 
+    """
+    total = 0
+
+    for file in file_list:
+        data = np.load(os.path.join(path, file))
+        total += data["images"].shape[0]
+
+    return total
