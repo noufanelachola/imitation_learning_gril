@@ -26,7 +26,7 @@ def read_npz(file_path: str):
     with np.load(file_path) as data:
         images = data["images"]/255
         depth = data["depth"]
-        gazes = data["gaze_coords"]
-        actions = data["action"]
+        gazes = data["gaze_coords"].squeeze(-1)
+        actions = data["action"].squeeze(-1)
 
         return images, depth, gazes, actions
