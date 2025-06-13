@@ -20,8 +20,8 @@ print("Keys : ", keys)
 for key in keys:
     print(key, data[key].shape)
 
-# for i in range(2):
-#     print(data["images"][i].shape)
-#     visualise(data["images"][i], data["gaze_coords"][i])
+for i in range(2):
+    print(data["images"][i].shape)
+    visualise(data["images"][i], data["gaze_coords"][i])
 
 # test_generate_gril(path, file_list, 3)
