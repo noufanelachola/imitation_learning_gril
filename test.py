@@ -1,5 +1,6 @@
 import numpy as np
 import os
+import tensorflow as tf
 
 from utils import visualise
 from utils import test_generate_gril
@@ -12,16 +13,19 @@ file_list = os.listdir(path)
 #     print(f"File {i+1} : {data['images'].shape[0]}")
 
 
-data = np.load("training_data/train/flipped_truck_mountains10.npz")
-keys = data.files
+# data = np.load("training_data/train/flipped_truck_mountains10.npz")
+# keys = data.files
 
-print("Keys : ", keys)
+# print("Keys : ", keys)
 
-for key in keys:
-    print(key, data[key].shape)
+# for key in keys:
+#     print(key, data[key].shape)
 
-for i in range(2):
-    print(data["images"][i].shape)
-    visualise(data["images"][i], data["gaze_coords"][i])
+# for i in range(2):
+#     print(data["images"][i].shape)
+#     visualise(data["images"][i], data["gaze_coords"][i])
 
 # test_generate_gril(path, file_list, 3)
+
+
+print("Num GPUs Available:", len(tf.config.list_physical_devices('GPU')))
